@@ -2,27 +2,31 @@
 
 ## Overview
 
-This project documents a full SOC-style incident investigation performed in a controlled home lab environment using Splunk Enterprise, Windows Event Logs, Azure NSG controls, and external threat intelligence validation.
+This project documents a full SOC-style incident investigation performed in a controlled home lab environment using Splunk Enterprise, Windows Security Event Logs, Azure NSG controls, and external threat intelligence validation.
 
-The investigation focused on identifying and analyzing real-world brute-force and password spraying activity targeting an internet-exposed Windows Server VM.
+The investigation focused on identifying and analyzing real-world brute-force and password spraying activity targeting an intentionally internet-exposed Windows Server VM.
 
 Over multiple weeks, the lab collected authentic attack telemetry from external systems attempting unauthorized authentication against exposed RDP services.
+
+---
 
 ## Disclaimer
 
 This project was conducted in a controlled home lab environment for educational and defensive security purposes only.
 
 ---
+
 ## Lab Architecture
 
-- Windows Server 2022 VM exposed to internet
-- Splunk Enterprise used for log ingestion and analysis
-- Windows Security Event Logs forwarded to Splunk
-- Azure NSG rules used for containment
-- VirusTotal used for threat intelligence enrichment
+* Windows Server 2022 VM intentionally exposed to the internet within a controlled home lab environment
+* Splunk Enterprise used for centralized log ingestion, monitoring, and analysis
+* Windows Security Event Logs ingested into Splunk Enterprise
+* Azure NSG rules used for containment and RDP access restriction
+* VirusTotal used for external threat intelligence enrichment and IP validation
 
+---
 
-# Environment
+## Environment
 
 | Component           | Technology                      |
 | ------------------- | ------------------------------- |
@@ -36,7 +40,7 @@ This project was conducted in a controlled home lab environment for educational 
 
 ---
 
-# Investigation Objectives
+## Investigation Objectives
 
 * Detect repeated failed authentication attempts
 * Identify suspicious external source IPs
@@ -49,16 +53,18 @@ This project was conducted in a controlled home lab environment for educational 
 
 ## Detection Metrics
 
-| Metric | Value |
-|--------|-------|
-| Failed Login Events | 17,126 |
-| Unique External IPs | 27 |
-| Successful Logins Investigated | 230 |
-| Malicious IPs Validated | 2 |
-| Event IDs Reviewed | 4624, 4625, 4688 |
-| Investigation Period | ~21 Days |
+| Metric                         | Value            |
+| ------------------------------ | ---------------- |
+| Failed Login Events            | 17,126           |
+| Unique External IPs            | 27               |
+| Successful Logins Investigated | 230              |
+| Malicious IPs Validated        | 2                |
+| Event IDs Reviewed             | 4624, 4625, 4688 |
+| Investigation Period           | ~21 Days         |
 
-# Attack Summary
+---
+
+## Attack Summary
 
 * 17,126 failed login attempts analyzed
 * 27 external source IP addresses identified
@@ -69,7 +75,7 @@ This project was conducted in a controlled home lab environment for educational 
 
 ---
 
-# MITRE ATT&CK Mapping
+## MITRE ATT&CK Technique Mapping
 
 | Technique | Description                   |
 | --------- | ----------------------------- |
@@ -96,13 +102,13 @@ index=main source="WinEventLog:Security" EventCode=4625
 
 ### Investigation Screenshot
 
-<img width="1920" height="1080" alt="02-failed-login-source-ip-analysis" src="https://github.com/user-attachments/assets/f9796281-1a29-41a2-a413-aa002f63fe33" />
+<img width="1920" height="1080" alt="02-failed-login-source-ip-analysis" src="https://github.com/user-attachments/assets/f2fb6ee6-b689-457d-b61a-31d2df826406" />
 
 ---
 
 ## 2. Password Spraying & Targeted Account Analysis
 
-Analyzed failed authentication activity to identify targeted accounts and repeated password spraying behavior across multiple usernames.
+Analyzed detailed authentication activity to identify targeted accounts and repeated password spraying behavior across multiple usernames.
 
 ### SPL Query
 
@@ -116,7 +122,7 @@ index=main source="WinEventLog:Security" EventCode=4625
 
 ### Investigation Screenshot
 
-<img width="1920" height="1080" alt="01-password-spraying-targeted-accounts-analysis" src="https://github.com/user-attachments/assets/1ef0276c-d60d-4e20-8f7b-9c8b8e1ebe87" />
+<img width="1920" height="1080" alt="01-password-spraying-targeted-accounts-analysis" src="https://github.com/user-attachments/assets/24c648bf-ebd6-4840-bc2d-7c431ee2a3cb" />
 
 ---
 
@@ -134,7 +140,7 @@ index=main source="WinEventLog:Security" EventCode=4624
 
 ### Investigation Screenshot
 
-<img width="1920" height="1080" alt="03-successful-logon-account-and-logon-type-analysis" src="https://github.com/user-attachments/assets/4c33a2f9-f789-47f9-8b52-718e6fe55dac" />
+ <img width="1920" height="1080" alt="03-successful-logon-account-and-logon-type-analysis" src="https://github.com/user-attachments/assets/60ec39ff-58cc-4f06-a8ca-ef126c0f8d4d" />
 
 ---
 
@@ -151,7 +157,7 @@ index=main source="WinEventLog:Security" EventCode=4624 Source_Network_Address=2
 
 ### Investigation Screenshot
 
-<img width="1920" height="1080" alt="06-successful-login-correlation-analysis" src="https://github.com/user-attachments/assets/c9967822-8a80-4e1f-b203-ee09ece4cd88" />
+<img width="1920" height="1080" alt="06-successful-login-correlation-analysis" src="https://github.com/user-attachments/assets/e0350b62-3b15-4c3d-a0ea-e2beb7b86c7c" />
 
 ---
 
@@ -161,11 +167,12 @@ Validated suspicious source IP addresses using VirusTotal threat intelligence to
 
 ### VirusTotal Validation – IP 185.93.89.10
 
-<img width="1920" height="1080" alt="04-virustotal-malicious-ip-validation-185 93 89 10" src="https://github.com/user-attachments/assets/925f61a7-929a-41a7-a610-91b791b03846" />
+<img width="1920" height="1080" alt="04-virustotal-malicious-ip-validation-185 93 89 10" src="https://github.com/user-attachments/assets/736e159c-a344-4fda-9478-b8c725c8b618" />
+
 
 ### VirusTotal Validation – IP 202.60.110.122
 
-<img width="1920" height="1080" alt="05-virustotal-malicious-ip-validation-202 60 110 122" src="https://github.com/user-attachments/assets/d30fda35-d171-424d-b0d6-f1b87bf0f657" />
+<img width="1920" height="1080" alt="05-virustotal-malicious-ip-validation-202 60 110 122" src="https://github.com/user-attachments/assets/21a1bb16-2755-4f35-89a6-e2e1ba9d1b01" />
 
 ---
 
@@ -187,7 +194,7 @@ No suspicious post-compromise process execution activity identified.
 
 ### Investigation Screenshot
 
-<img width="1920" height="1080" alt="07-post-compromise-process-execution-analysis" src="https://github.com/user-attachments/assets/3936a2c0-77b5-4246-80a2-1f8b048d093c" />
+<img width="1920" height="1080" alt="07-post-compromise-process-execution-analysis" src="https://github.com/user-attachments/assets/a2ff55be-3b23-4649-a65b-23e79431812a" />
 
 ---
 
@@ -204,7 +211,7 @@ No suspicious post-compromise process execution activity identified.
 # Key Findings
 
 * Multiple external systems attempted unauthorized access against exposed RDP services
-* Attackers targeted common usernames and service-related accounts
+* Attackers targeted common usernames and service-related account names
 * Password spraying activity aligned with MITRE ATT&CK T1110.003
 * SPL-based event correlation identified suspicious successful authentication activity
 * Threat intelligence enrichment improved investigation confidence during triage
@@ -240,3 +247,5 @@ The project helped strengthen practical understanding of:
 * Threat intelligence enrichment
 * Incident response workflows
 * Security monitoring and remediation
+
+This investigation simulated a real SOC analyst workflow from detection through containment and post-investigation validation.
