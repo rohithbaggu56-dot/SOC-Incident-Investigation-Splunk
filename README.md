@@ -8,7 +8,19 @@ The investigation focused on identifying and analyzing real-world brute-force an
 
 Over multiple weeks, the lab collected authentic attack telemetry from external systems attempting unauthorized authentication against exposed RDP services.
 
+## Disclaimer
+
+This project was conducted in a controlled home lab environment for educational and defensive security purposes only.
+
 ---
+## Lab Architecture
+
+- Windows Server 2022 VM exposed to internet
+- Splunk Enterprise used for log ingestion and analysis
+- Windows Security Event Logs forwarded to Splunk
+- Azure NSG rules used for containment
+- VirusTotal used for threat intelligence enrichment
+
 
 # Environment
 
@@ -34,6 +46,17 @@ Over multiple weeks, the lab collected authentic attack telemetry from external 
 * Implement containment and remediation measures
 
 ---
+
+## Detection Metrics
+
+| Metric | Value |
+|--------|-------|
+| Failed Login Events | 17,126 |
+| Unique External IPs | 27 |
+| Successful Logins Investigated | 230 |
+| Malicious IPs Validated | 2 |
+| Event IDs Reviewed | 4624, 4625, 4688 |
+| Investigation Period | ~21 Days |
 
 # Attack Summary
 
