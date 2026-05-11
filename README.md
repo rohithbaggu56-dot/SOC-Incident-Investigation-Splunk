@@ -24,7 +24,7 @@ This project was conducted in a controlled home lab environment for educational 
 * Azure NSG rules used for containment and RDP access restriction
 * VirusTotal used for external threat intelligence enrichment and IP validation
 
----
+
 
 ## 🗓️ Incident Timeline
 
@@ -33,7 +33,7 @@ This project was conducted in a controlled home lab environment for educational 
 | 2026-04-08 | Attack campaign begins from IP **185.93.89.10**        |
 | 2026-04-28 | Breach detected – suspicious **ANONYMOUS_LOGON** from IP **202.60.110.122** |
 | 2026-04-29 | Forwarder connectivity issues – log ingestion stopped  |
-| 2026-05-07 | Splunk alert fired – investigation initiated           |
+| 2026-05-07 | Historical authentication logs reviewed and investigation initiated in Splunk          |
 | 2026-05-09 | Investigation completed – remediation verified         |
 
 
