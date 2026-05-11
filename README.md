@@ -48,7 +48,6 @@ This project was conducted in a controlled home lab environment for educational 
 | Investigation Focus | Brute Force / Password Spraying |
 | Detection Events    | Event ID 4625 / 4624 / 4688     |
 
----
 
 ## Investigation Objectives
 
