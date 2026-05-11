@@ -26,6 +26,19 @@ This project was conducted in a controlled home lab environment for educational 
 
 ---
 
+## 🗓️ Incident Timeline
+
+| Date       | Event Description                                      |
+|------------|--------------------------------------------------------|
+| 2026-04-08 | Attack campaign begins from IP **185.93.89.10**        |
+| 2026-04-28 | Breach detected – suspicious **ANONYMOUS_LOGON** from IP **202.60.110.122** |
+| 2026-04-29 | Forwarder connectivity issues – log ingestion stopped  |
+| 2026-05-07 | Splunk alert fired – investigation initiated           |
+| 2026-05-09 | Investigation completed – remediation verified         |
+
+
+---
+
 ## Environment
 
 | Component           | Technology                      |
@@ -206,6 +219,18 @@ No suspicious post-compromise process execution activity identified.
 * Limited remote access to trusted IP addresses only
 * Continued monitoring authentication activity through Splunk
 
+
+## Detection & Prevention Improvements
+
+**What Could Be Better:**
+
+- **Real‑time alerting** → Trigger alerts on Event ID **4624** immediately after a spike in **4625** failures *(T1110 – Brute Force detected within minutes, not weeks)*  
+- **Honeypot accounts** → Deploy decoy accounts to trigger instant response, preventing compromise of real accounts  
+- **Threat intel automation** → Automate VirusTotal lookups for every failed login IP *(eliminate manual validation delays)*  
+- **MFA on service accounts** → Enforce multi‑factor authentication to block breaches even if passwords are compromised  
+- **Geo‑blocking** → Restrict RDP access from high‑risk regions *(e.g., Vietnam, Bangladesh, etc.)*
+
+
 ---
 
 # Key Findings
@@ -216,6 +241,17 @@ No suspicious post-compromise process execution activity identified.
 * SPL-based event correlation identified suspicious successful authentication activity
 * Threat intelligence enrichment improved investigation confidence during triage
 * No evidence of lateral movement or malicious process execution identified
+
+
+
+## Root Cause Analysis
+
+The breach occurred because:
+
+1. **Windows Server exposed to the internet** with security initially disabled *(intentional for lab setup)*  
+2. **Default/service accounts** (e.g., `ANONYMOUS_LOGON`) lacked brute‑force protections  
+3. **29‑day detection gap** due to forwarder connectivity issues *(would be caught in real‑time in production)*  
+4. **No MFA** implemented on service accounts
 
 ---
 
