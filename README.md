@@ -8,10 +8,7 @@ The investigation focused on identifying and analyzing real-world brute-force an
 
 Over multiple weeks, the lab collected authentic attack telemetry from external systems attempting unauthorized authentication against exposed RDP services.
 
----
-
-## Disclaimer
-
+#### NOTE:
 This project was conducted in a controlled home lab environment for educational and defensive security purposes only.
 
 ---
@@ -228,8 +225,7 @@ No suspicious post-compromise process execution activity identified.
 - **Honeypot accounts** → Deploy decoy accounts to trigger instant response, preventing compromise of real accounts  
 - **Threat intel automation** → Automate VirusTotal lookups for every failed login IP *(eliminate manual validation delays)*  
 - **MFA on service accounts** → Enforce multi‑factor authentication to block breaches even if passwords are compromised  
-- **Geo‑blocking** → Restrict RDP access from high‑risk regions *(e.g., Vietnam, Bangladesh, etc.)*
-
+- **Geo‑blocking** → Access restrictions for regions not expected to access exposed RDP services
 
 ---
 
@@ -248,10 +244,10 @@ No suspicious post-compromise process execution activity identified.
 
 The breach occurred because:
 
-1. **Windows Server exposed to the internet** with security initially disabled *(intentional for lab setup)*  
-2. **Default/service accounts** (e.g., `ANONYMOUS_LOGON`) lacked brute‑force protections  
-3. **29‑day detection gap** due to forwarder connectivity issues *(would be caught in real‑time in production)*  
-4. **No MFA** implemented on service accounts
+1. Windows Server exposed to the internet with security initially disabled (intentional for lab setup)
+2. Exposed authentication services and weak access controls increased brute-force attack exposure
+3. Delayed visibility caused by Splunk forwarder connectivity interruptions impacted real-time monitoring  
+4. No MFA implemented on service accounts
 
 ---
 
