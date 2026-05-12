@@ -71,6 +71,20 @@ This project was conducted in a controlled home lab environment for educational 
 | Event IDs Reviewed             | 4624, 4625, 4688 |
 | Investigation Period           | ~21 Days         |
 
+
+## Splunk Detection Dashboard
+
+To improve visibility during investigation, a custom Splunk dashboard was created to visualize:
+
+- Failed login activity trends
+- Top attacking source IP addresses
+- Targeted account distribution
+- Total authentication failures
+
+This dashboard helped support triage and investigation workflows by centralizing authentication telemetry and attack metrics.
+
+<img width="1920" height="1080" alt="08-brute-force-detection-dashboard" src="https://github.com/user-attachments/assets/787f63ac-ba9b-4eeb-b440-cbe65eecefe3" />
+
 ---
 
 ## Attack Summary
